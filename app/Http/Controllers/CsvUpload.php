@@ -2,15 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\csvImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\CsvModel;
 
+use Maatwebsite\Excel\Facades\Excel;
+
 class CsvUpload extends Controller
 {
     
+
+
+
+  public function uploadUsers(Request $request)
+  {
+      Excel::import(new csvImport, request()->file('csvfile'));
+      return response()->json([
+        "success" => true,
+        "message" => "File successfully uploaded",
+        
+      ],200);
+      
+  }
+
+
+  
+
+
+
+
+
+
     public function uploadCsv(Request $request)
     {
+      dd('CSV',$request->all());
         $validator = Validator::make($request->all(),[ 
             'csvfile' => 'required|max:2048',
       ]);   
@@ -19,7 +45,6 @@ class CsvUpload extends Controller
           
           return response()->json(['error'=>$validator->errors()], 200);                        
        }
-         
        if ($file = $request->file('csvfile')) {
         $destinationPath = "uploads";
         $file->move($destinationPath,$file->getClientOriginalName());

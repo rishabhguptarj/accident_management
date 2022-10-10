@@ -8,6 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class CsvModel extends Model
 {
     use HasFactory;
+    // protected $table = "csv_models";
     protected $table = "fatalities";
-    protected $fillable = ['country','state','city','pincode','fatalities','age','gender','vehicle','insured_status','created_at'];
+    protected $fillable = [
+        'name',
+        'email',
+        // 'country',
+        // 'state',
+        // 'city',
+        // 'pincode',
+        // 'fatalities',
+        // 'age',
+        // 'gender',
+        // 'vehicle',
+        // 'insured_status',
+        // 'created_at'
+    ];
 }
